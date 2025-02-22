@@ -30,7 +30,8 @@ namespace WpfAppHoadon
 
         private void menuHoadon_Click(object sender, RoutedEventArgs e)
         {
-
+            WindowHoadon f = new WindowHoadon();
+            f.Show();
         }
     }
 }
