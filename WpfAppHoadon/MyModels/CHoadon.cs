@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -34,7 +35,7 @@ namespace WpfAppHoadon.MyModels
                 Tenkh = h.Tenkh,
                 Chitiethoadons = h.Chitiethoadons.Select(t => CChitiethoadon.chuyendoi(t)).ToList()
             };
-            
+
         }
         public static Hoadon chuyendoi(CHoadon c)
         {
@@ -46,5 +47,17 @@ namespace WpfAppHoadon.MyModels
                 Chitiethoadons = c.Chitiethoadons.Select(t => CChitiethoadon.chuyendoi(t)).ToList()
             };
         }
-    } 
+        public static CHoadon saochep(CHoadon c)
+        {
+            CHoadon hd = new CHoadon();
+            hd.Sohd = c.Sohd;
+            hd.Ngaylaphd = c.Ngaylaphd;
+            hd.Tenkh = c.Tenkh;
+            foreach (CChitiethoadon ct in c.Chitiethoadons)
+            {
+                hd.Chitiethoadons.Add(ct);
+            }
+            return hd;
+        }
+    }
 }

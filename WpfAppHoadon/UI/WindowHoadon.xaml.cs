@@ -71,16 +71,31 @@ namespace WpfAppHoadon.UI
             x.MahangNavigation = db.Hanghoas.Find(x.Mahang);
             x.Dongia = x.MahangNavigation.Dongia;
             hd.Chitiethoadons.Add(x);
-            dgChitiet.ItemsSource = hd.Chitiethoadons.ToList();
+            //dgChitiet.ItemsSource = hd.Chitiethoadons.ToList();
+            stackHoaDon.DataContext = CHoadon.saochep(hd);
         }
 
         private void lap_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
-
+            e.CanExecute = true;
         }
 
         private void lap_Executed(object sender, ExecutedRoutedEventArgs e)
         {
+            CHoadon x = stackHoaDon.DataContext as CHoadon;
+            hoadonContext db = new hoadonContext();
+            Hoadon c = CHoadon.chuyendoi(x);
+            foreach(CChitiethoadon ct in x.Chitiethoadons)
+            {
+                ct.Sohd = x.Sohd;
+
+            }
+            db.Hoadons.Add(c);
+            db.SaveChanges();
+            dgHoadon.ItemsSource = db.Hoadons.ToList();
+            hd = new CHoadon();
+            stackHoaDon.DataContext = hd;
+
 
         }
     }
