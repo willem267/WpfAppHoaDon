@@ -21,6 +21,9 @@ namespace WpfAppHoadon.UI
     /// </summary>
     public partial class WindowHoadon : Window
     {
+        public static RoutedUICommand lenhChon = new RoutedUICommand();
+        public static RoutedUICommand lenhLapHD = new RoutedUICommand();
+        private CHoadon hd = new CHoadon();
         public WindowHoadon()
         {
             InitializeComponent();
@@ -30,6 +33,7 @@ namespace WpfAppHoadon.UI
         {
             hoadonContext db = new hoadonContext();
             dgHoadon.ItemsSource = db.Hoadons.ToList();
+            cmbMahang.ItemsSource = db.Hanghoas.ToList();
         }
 
         private void dgHoadon_LoadingRowDetails(object sender, DataGridRowDetailsEventArgs e)
@@ -44,6 +48,40 @@ namespace WpfAppHoadon.UI
             FrameworkElement fw =  e.DetailsElement;
             StackPanel sp = fw.FindName("stackHoadon") as StackPanel;
             sp.DataContext=CHoadon.chuyendoi(hd);
+        }
+
+
+        private void chon_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = true;
+        }
+
+        private void chon_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+
+            CChitiethoadon ct = gridCTHD.DataContext as CChitiethoadon;
+            CChitiethoadon x = new CChitiethoadon
+            {
+                
+                Mahang = ct.Mahang,
+                Soluong = ct.Soluong
+            };
+            hoadonContext db = new hoadonContext();
+
+            x.MahangNavigation = db.Hanghoas.Find(x.Mahang);
+            x.Dongia = x.MahangNavigation.Dongia;
+            hd.Chitiethoadons.Add(x);
+            dgChitiet.ItemsSource = hd.Chitiethoadons.ToList();
+        }
+
+        private void lap_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+
+        }
+
+        private void lap_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+
         }
     }
 }

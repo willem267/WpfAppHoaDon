@@ -9,6 +9,11 @@ namespace WpfAppHoadon.MyModels
 {
     class CChitiethoadon
     {
+        public CChitiethoadon()
+        {
+            Mahang = string.Empty;
+            Soluong = 1;
+        }
         public string Sohd { get; set; }
         public string Mahang { get; set; }
         public double? Dongia { get; set; }

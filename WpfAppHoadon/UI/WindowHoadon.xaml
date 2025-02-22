@@ -6,11 +6,78 @@
         xmlns:local="clr-namespace:WpfAppHoadon.UI"
         xmlns:localMyModels="clr-namespace:WpfAppHoadon.MyModels"
         mc:Ignorable="d"
-        Title="WindowHoadon" Height="450" Width="800" Loaded="Window_Loaded">
+        Title="WindowHoadon" Height="450" Width="800" Loaded="Window_Loaded"> 
+    <Window.CommandBindings>
+        <CommandBinding x:Name="chon" Command="local:WindowHoadon.lenhChon" CanExecute="chon_CanExecute" Executed="chon_Executed"/>
+        <CommandBinding x:Name="lap" Command="local:WindowHoadon.lenhLapHD" CanExecute="lap_CanExecute" Executed="lap_Executed"/>
+
+    </Window.CommandBindings>
     <Window.Resources>
         <localMyModels:CHoadon x:Key="rsHoadon"/>
+        <localMyModels:CChitiethoadon x:Key="rsCTHD"/>
     </Window.Resources>
     <StackPanel>
+        <StackPanel Margin="5" DataContext="{StaticResource rsHoadon}" x:Name="stackHoaDon">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <TextBlock Grid.Column="1" Grid.Row="0" Text="Số hoá đơn" FontWeight="Bold"/>
+                <TextBlock Grid.Column="1" Grid.Row="1" Text="Ngày lập hoá đơn" FontWeight="Bold"/>
+                <TextBlock Grid.Column="1" Grid.Row="2" Text="Tên khách hàng" FontWeight="Bold"/>
+                <TextBlock Grid.Column="1" Grid.Row="3" Text="Tổng tiền" FontWeight="Bold"/>
+                <TextBox Grid.Column="2" Grid.Row="0"  Text="{Binding Sohd}" IsReadOnly="True"/>
+                <TextBox Grid.Column="2" Grid.Row="1"  Text="{Binding Ngaylaphd}" IsReadOnly="True"/>
+                <TextBox Grid.Column="2" Grid.Row="2"  Text="{Binding Tenkh}" IsReadOnly="True"/>
+                <TextBox Grid.Column="2" Grid.Row="3"  Text="{Binding Thanhtien, Mode=OneWay}" IsReadOnly="True"/>
+            </Grid>
+            <Grid x:Name="gridCTHD" DataContext="{StaticResource rsCTHD}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <TextBlock Grid.Column="0" Grid.Row="0" Text="Mã hàng hóa" FontWeight="Bold"/>
+                <TextBlock Grid.Column="1" Grid.Row="0" Text="Tên hàng hóa" FontWeight="Bold"/>
+                <TextBlock Grid.Column="2" Grid.Row="0" Text="Đơn vị tính" FontWeight="Bold"/>
+                <TextBlock Grid.Column="3" Grid.Row="0" Text="Đơn giá" FontWeight="Bold"/>
+                <TextBlock Grid.Column="4" Grid.Row="0" Text="Số lượng" FontWeight="Bold"/>
+                <ComboBox Grid.Column="0" Grid.Row="1" x:Name="cmbMahang"  DisplayMemberPath="Mahang" SelectedValuePath="Mahang" SelectedValue="{Binding Mahang}"/>
+                <TextBox Grid.Column="1" Grid.Row="1"  Text="{Binding ElementName=cmbMahang, Path=SelectedItem.Tenhang}" Height="22" VerticalAlignment="Bottom" IsReadOnly="True"/>
+                <TextBox Grid.Column="2" Grid.Row="1"  Text="{Binding ElementName=cmbMahang, Path=SelectedItem.Dvt}" IsReadOnly="True"/>
+                <TextBox Grid.Column="3" Grid.Row="1"  Text="{Binding ElementName=cmbMahang, Path=SelectedItem.Dongia}" IsReadOnly="True"/>
+                <TextBox Grid.Column="4" Grid.Row="1"  Text="{Binding Soluong}"/>
+                <Button Grid.Column="5" Grid.Row="1" Content="Chọn hàng hoá" Command="local:WindowHoadon.lenhChon"/>
+            </Grid>
+            <DataGrid AutoGenerateColumns="False" ItemsSource="{Binding Chitiethoadons}" IsReadOnly="True" x:Name="dgChitiet">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Mã hàng hóa" Binding="{Binding Mahang}"/>
+                    <DataGridTextColumn Header="Tên hàng hóa" Binding="{Binding Tenhang}"/>
+                    <DataGridTextColumn Header="Đơn vị tính" Binding="{Binding Dvt}"/>
+                    <DataGridTextColumn Header="Đơn giá" Binding="{Binding Dongia}"/>
+                    <DataGridTextColumn Header="Số lượng" Binding="{Binding Soluong}"/>
+                    <DataGridTextColumn Header="Thành tiền" Binding="{Binding Thanhtien}"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </StackPanel>
+        <Button Content="Lập hóa đơn" Command="local:WindowHoadon.lenhLapHD" />
+        <Label Content="Danh sách hoá đơn"/>
         <DataGrid AutoGenerateColumns="False" Height="250" x:Name="dgHoadon" LoadingRowDetails="dgHoadon_LoadingRowDetails">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Số hóa đơn" Binding="{Binding Sohd}"/>
@@ -20,8 +87,8 @@
             <DataGrid.RowDetailsTemplate>
                 <DataTemplate>
                     <Expander Header="Chi tiết hoá đơn">
-                        <StackPanel Margin="5" DataContext="{StaticResource rsHoadon}" x:Name="stackHoadon" >
-                            <Grid >
+                        <StackPanel Margin="5" DataContext="{StaticResource rsHoadon}" x:Name="stackHoadon">
+                            <Grid>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*"/>
                                     <ColumnDefinition Width="*"/>
