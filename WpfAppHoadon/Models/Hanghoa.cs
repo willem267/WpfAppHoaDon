@@ -18,5 +18,6 @@ namespace WpfAppHoadon.Models
         public double? Dongia { get; set; }
 
         public virtual ICollection<Chitiethoadon> Chitiethoadons { get; set; }
+        
     }
 }

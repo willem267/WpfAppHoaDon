@@ -33,5 +33,17 @@ namespace WpfAppHoadon
             WindowHoadon f = new WindowHoadon();
             f.Show();
         }
+
+        private void menuHangHoaMVVM_Click(object sender, RoutedEventArgs e)
+        {
+            HanghoaMVVM f = new HanghoaMVVM();
+            f.Show();
+        }
+
+        private void testMVVM_Click(object sender, RoutedEventArgs e)
+        {
+            WindowTest f = new WindowTest();
+            f.Show();
+        }
     }
 }

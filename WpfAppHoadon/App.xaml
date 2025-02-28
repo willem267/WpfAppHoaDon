@@ -2,8 +2,10 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:WpfAppHoadon"
+             xmlns:localMyModels ="clr-namespace:WpfAppHoadon.MyModels"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+        <localMyModels:WindowHanghoaVM x:Key="rsHanghoaVM"/>
+        <localMyModels:WindowtestVM x:Key="rsTestMVVM"/>
     </Application.Resources>
 </Application>

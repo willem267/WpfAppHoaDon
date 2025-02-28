@@ -1,0 +1,48 @@
+﻿<Window x:Class="WpfAppHoadon.UI.HanghoaMVVM"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfAppHoadon.UI"
+        mc:Ignorable="d"
+        Title="WindowHanghoaMVVM" Height="450" Width="800" DataContext="{StaticResource rsHanghoaVM}">
+       
+    <StackPanel>
+        <Label Content="Quản lý hàng hóa" FontSize="28" FontWeight='Bold' HorizontalAlignment="Center"/>
+        <Grid  x:Name="gridHanghoa">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition/> 
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <TextBlock Grid.Row="0" Grid.Column="1" Text="Mã hàng" />
+            <TextBlock Grid.Row="1" Grid.Column="1" Text="Tên hàng"/>
+            <TextBlock Grid.Row="2" Grid.Column="1" Text="Đơn vị tính"/>
+            <TextBlock Grid.Row="3" Grid.Column="1" Text="Đơn giá"/>
+            <TextBox Grid.Row="0" Grid.Column="2" Text="{Binding Mahang}" x:Name="txtMahang" />
+            <TextBox Grid.Row="1" Grid.Column="2" Text="{Binding Tenhang}"/>
+            <TextBox Grid.Row="2" Grid.Column="2" Text="{Binding Dvt}"/>
+            <TextBox Grid.Row="3" Grid.Column="2" Text="{Binding Dongia}"/>
+            <Button Grid.Row="0" Grid.Column="3" Content="Thêm" Command="{Binding lenhThem}" />
+            <Button Grid.Row="1" Grid.Column="3" Content="Xóa" Command="{Binding lenhXoa}"/>
+            <Button Grid.Row="2" Grid.Column="3" Content="Sửa" Command="{Binding lenhSua}"/>
+        </Grid>
+        <DataGrid AutoGenerateColumns="False" x:Name="dgHanghoa" IsReadOnly="True" ItemsSource="{Binding listHanghoa}" SelectedItem="{Binding selectionHanghoa}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Mã hàng" Binding="{Binding Mahang}" />
+                <DataGridTextColumn Header="Tên hàng" Binding="{Binding Tenhang}"/>
+                <DataGridTextColumn Header="Đơn vị tính" Binding="{Binding Dvt}"/>
+                <DataGridTextColumn Header="Đơn giá" Binding="{Binding Dongia}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+    </StackPanel>
+</Window>
